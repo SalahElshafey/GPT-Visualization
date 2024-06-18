@@ -1,0 +1,79 @@
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+from transformers import GPT2LMHeadModel
+from scipy.ndimage import gaussian_filter    #for smoothing out Noise and make the weights more apparent
+
+# Load the GPT-2 model
+model_name = 'gpt2'
+model = GPT2LMHeadModel.from_pretrained(model_name)
+
+# Choose a specific layer to visualize, for example, the first attention layer weights
+layer_name = 'transformer.h.0.attn.c_attn.weight'
+layer_weights = None
+
+# Extract the weights of the chosen layer
+for name, param in model.named_parameters():
+    if name == layer_name:
+        layer_weights = param.data.cpu().numpy()
+        break
+
+if layer_weights is None:
+    raise ValueError(f"Layer {layer_name} not found in the model.")
+
+# Flatten the weights and concatenate them into a single array
+flat_weights = layer_weights.flatten()
+
+# Print the statistics of the flat weights
+print(f"Flat weights - max: {np.max(flat_weights)}, min: {np.min(flat_weights)}, mean: {np.mean(flat_weights)}, std: {np.std(flat_weights)}")
+
+# Normalize the weights by the maximum absolute weight
+max_abs_weight = np.max(np.abs(flat_weights))
+normalized_weights = flat_weights / max_abs_weight
+
+# Print some of the weights before and after normalization
+print("Weights before normalization:", flat_weights[:10])
+print("Weights after normalization:", normalized_weights[:10])
+
+# Verify the distribution of weights before and after normalization
+plt.figure(figsize=(10, 5))
+plt.hist(flat_weights, bins=100, color='blue', alpha=0.7, label='Before Normalization')
+plt.hist(normalized_weights, bins=100, color='red', alpha=0.7, label='After Normalization')
+plt.title('Distribution of Weights')
+plt.xlabel('Weight Value')
+plt.ylabel('Frequency')
+plt.legend()
+plt.show()
+
+# Increase the sampling percentage
+sampling_percentage = 0.5  # Increase this value to sample more weights
+
+# Determine the size of the image
+total_weights = len(normalized_weights)
+sampled_weights = int(total_weights * sampling_percentage)
+height = int(np.sqrt(sampled_weights))  # Height for a roughly square image
+width = sampled_weights // height  # Width based on the total number of samples
+sampled_matrix = normalized_weights[:height * width].reshape((height, width))
+
+# Apply a Gaussian filter to smooth the image and reduce noise
+sampled_matrix = gaussian_filter(sampled_matrix, sigma=1)
+
+# Enhance visibility by scaling the weights for better color distinction
+scale_factor = 1000  # Further increase the scale for better visibility
+sampled_matrix *= scale_factor
+
+# Create the image with red for negative weights and green for positive weights
+image = np.zeros((height, width, 3))
+image[:, :, 0] = np.where(sampled_matrix < 0, -sampled_matrix, 0)  # Red channel for negative weights
+image[:, :, 1] = np.where(sampled_matrix > 0, sampled_matrix, 0)   # Green channel for positive weights
+
+# Clip values to be within the range [0, 1]
+#image = np.clip(image, 0, 1)
+
+# Display the image using Matplotlib
+plt.figure(figsize=(10, 10))
+plt.imshow(image[::-1], aspect='auto')  # Reverse the image vertically
+plt.title('GPT-2 Weights Visualization')
+plt.xlabel('Weight Index')
+plt.ylabel('Layer Index')
+plt.show()
