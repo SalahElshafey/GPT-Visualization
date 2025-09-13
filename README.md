@@ -33,11 +33,11 @@ The primary objective is to **demystify transformer-based large language models*
 
 ## Features
 
-- ✅ **GPT-2 From Scratch**: Layer-by-layer breakdown of the GPT-2 architecture.  
-- ✅ **Visualization Utilities**: Inspect embeddings, attention weights, and hidden states.  
-- ✅ **Educational Design**: Structured with exercises/tasks (`Aufgaben.ipynb`) to reinforce learning.  
-- ✅ **Hands-on Experiments**: Tokenization, self-attention mechanics, multi-head attention, feed-forward layers, and training loop demos.  
-- ✅ **Interactive Exploration**: Run cells and modify code to deepen understanding.  
+- **GPT-2 From Scratch**: Layer-by-layer breakdown of the GPT-2 architecture.  
+- **Visualization Utilities**: Inspect embeddings, attention weights, and hidden states.  
+- **Educational Design**: Structured with exercises/tasks (`Aufgaben.ipynb`) to reinforce learning.  
+- **Hands-on Experiments**: Tokenization, self-attention mechanics, multi-head attention, feed-forward layers, and training loop demos.  
+- **Interactive Exploration**: Run cells and modify code to deepen understanding.  
 
 ---
 
