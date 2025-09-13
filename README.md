@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/university-logo.png" alt="University Logo" height="100">
+  <img src="assets/university of Greifswald.jpg" alt="University of Greifswald" height="150">
 </p>
 
 # GPT-Visualization
