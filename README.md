@@ -13,7 +13,6 @@ The notebooks in this repository break down GPT-2 into its fundamental component
 - [Overview](#overview)
 - [Features](#features)
 - [Project Structure](#project-structure)
-- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
@@ -52,22 +51,13 @@ The primary objective is to **demystify transformer-based large language models*
 
 ---
 
-## Screenshots
-
-<p align="center">
-  <img src="assets/attention-visualization.png" alt="Attention Visualization" width="600">
-</p>
-
-*Example: Visualization of GPT-2 attention heads across tokens.*
-
----
 
 ## Installation
 
 Clone the repository and set up your Python environment:
 
 ```bash
-git clone https://github.com/your-username/GPT-Visualization.git
+git clone https://github.com/SalahElshafey/GPT-Visualization.git
 cd GPT-Visualization
 
 # Create virtual environment (optional but recommended)
@@ -75,8 +65,6 @@ python3 -m venv env
 source env/bin/activate  # Linux/Mac
 env\Scripts\activate   # Windows
 
-# Install dependencies
-pip install -r requirements.txt
 ```
 
 ---
@@ -105,11 +93,6 @@ Key libraries:
 - PyTorch
 - Jupyter Notebook
 
-Install all requirements via:
-
-```bash
-pip install -r requirements.txt
-```
 
 ---
 
